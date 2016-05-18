@@ -1,24 +1,26 @@
-import { AppContainer } from 'react-hot-loader';
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
+import { AppContainer } from 'react-hot-loader'
+import React from 'react'
+import ReactDOM from 'react-dom'
+import configureStore from './utils/configureStore'
+import App from './components/App'
 
 const rootEl = document.getElementById('root');
+const store = configureStore()
 ReactDOM.render(
   <AppContainer>
-    <App />
+    <App store={store} />
   </AppContainer>,
   rootEl
 );
 
 if (module.hot) {
-  module.hot.accept('./App', () => {
+  module.hot.accept('./components/App', () => {
     // If you use Webpack 2 in ES modules mode, you can
     // use <App /> here rather than require() a <NextApp />.
-    const NextApp = require('./App').default;
+    const NextApp = require('./components/App').default;
     ReactDOM.render(
       <AppContainer>
-         <NextApp />
+         <NextApp store={store} />
       </AppContainer>,
       rootEl
     );

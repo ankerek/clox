@@ -1,6 +1,9 @@
-import React, { Component } from 'react';
-import Layout from './Layout';
-import Counter from './Counter';
+import React, { Component } from 'react'
+import { Provider } from 'react-redux'
+import Layout from './Layout'
+import Game from './Game'
+
+require('../theme/styles/main.css')
 
 // If you use React Router, make this component
 // render <Router> with your routes. Currently,
@@ -11,10 +14,11 @@ import Counter from './Counter';
 
 export default class App extends Component {
   render() {
+		const { store } = this.props;
     return (
-      <Layout>
-        <Counter />
-      </Layout>
+    	<Provider store={store}>
+        <Game />
+      </Provider>
     );
   }
 }

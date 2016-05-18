@@ -1,5 +1,7 @@
 var path = require('path');
 var webpack = require('webpack');
+var precss = require('precss');
+var autoprefixer = require('autoprefixer');
 
 
 
@@ -20,10 +22,21 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin()
   ],
   module: {
-    loaders: [{
-      test: /\.js$/,
-      loaders: ['babel'],
-      include: path.join(__dirname, '..', 'src')
-    }]
+    loaders: [
+      {
+        test: /\.js$/,
+        loaders: ['babel'],
+        include: path.join(__dirname, '..', 'src')
+      },
+      {
+        test: /\.css$/,
+        loader: 'style!css!postcss'
+      }
+
+    ]
+  },
+
+  postcss: function () {
+    return [precss, autoprefixer];
   }
 };

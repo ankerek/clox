@@ -1,0 +1,43 @@
+
+* {
+	box-sizing: border-box;
+}
+
+.board {
+	padding: 10px;
+	width: 500px;
+	height: 500px;
+	position: relative;
+	background-color: #d1d3d4;
+	border-radius: 7px;
+
+	.board-inner {
+		width: 90%;
+		height: 90%;
+		top: 5%;
+		left: 5%;
+		position: absolute;
+		background-color: #808285;
+	}
+
+	.cell {
+		margin: 1px;
+		width: calc((100% - 30px) / 15);
+		height: calc((100% - 30px) / 15);
+		position: relative;
+		z-index: 9;
+		display: block;
+		float: left;
+		background-color: #f7fafd;
+		border: 1px solid #ffffff;
+		border-radius: 5px;
+		text-align: center;
+
+
+		&.orange {
+			color: white;
+			background-color: #fbb040;
+			border-color: #fec572;
+		}
+	}
+}
