@@ -1,13 +1,16 @@
 import { createStore, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
+import socketMiddleware from './socketMiddleware'
 import rootReducer from '../reducers'
 
-export default function configureStore(initialState) {
+export default function configureStore(initialState, socket) {
+	
+	const middlewares = [ thunk, socketMiddleware(socket) ]
 	
 	const store = createStore(
 		rootReducer,
 		initialState,
-		applyMiddleware(thunk)
+		applyMiddleware(...middlewares)
 	);
 
 	if (module.hot) {

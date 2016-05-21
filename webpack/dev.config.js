@@ -1,8 +1,8 @@
 var path = require('path');
 var webpack = require('webpack');
 var precss = require('precss');
-var autoprefixer = require('autoprefixer');
-
+var autoprefixer = require('autoprefixer'); 
+import config from '../src/config'
 
 
 module.exports = {
@@ -14,12 +14,12 @@ module.exports = {
     './src/index'
   ],
   output: {
-    path: path.join(__dirname, 'dist'),
+    path: path.join(__dirname, '..', 'dist'),
     filename: 'bundle.js',
-    publicPath: '/static/'
+    publicPath: 'http://' + config.host + ':' + 3001 + '/dist/'
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
   ],
   module: {
     loaders: [

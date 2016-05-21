@@ -3,22 +3,31 @@ import React, { Component } from 'react'
 
 export default class Cell extends Component {
 
+  shouldComponentUpdate(nextProps) {
+    if(this.props.cell.player === nextProps.cell.player) return false;
+    return true;
+  }
+
 	handleClick = () => {
-		const { row, col } = this.props;
+		const { cell, row, col } = this.props;
+    if(cell.player) return;
 		this.props.move({
 			row,
-			col,
-			player: 2
+			col
 		})
 	};
 
   render() {
-  	const { value, move } = this.props;
+    //console.log(this.props.col)
+  	const { cell: { player }, move } = this.props;
+
   	let className = 'cell ';
-  	if(value === 2) className += 'orange';
+  	if(player === 1) className += 'player-1';
+    else if(player === 2) className += 'player-2';
+
     return (
     	<div className={className} onClick={this.handleClick}>
-      { value }
+      { player }
       </div>
    	);
   }

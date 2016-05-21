@@ -1,21 +1,39 @@
 import * as actions from '../constants/actions'
 import { checkWin } from '../utils/game'
 
-export function move(move) {
+export function loadGame(result) {
+	return {
+		type: actions.LOAD_GAME,
+		result
+	};	
+}
 
-	return (dispatch, getState) => {
+export function prepareMove(result) {
+	return {
+		type: actions.MOVE,
+		result
+	};	
+}
 
-		//const { game } = store.getState();
-		
+export function move(result) {
+	return {
+		type: actions.MOVE,
+		result,
+		remote: 'game move'
+	};	
+}
 
-		dispatch({
-			type: actions.MOVE,
-			move
-		});
+export function gameChange(result) {
+	return {
+		type: actions.GAME_CHANGE,
+		result
+	};	
+}
 
-		const { game: { board } } = getState()
-
-    console.log(checkWin({ board, ...move }))
+export function addPlayer(result, remote = false) {
+	return {
+		type: actions.ADD_PLAYER,
+		result,
+		remote: remote ? 'add player' : null
 	}
-	
 }

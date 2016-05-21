@@ -2,13 +2,18 @@ import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import Board from './Board'
-import { move } from '../actions/game'
+import Panel from './Panel'
+import { move, addPlayer } from '../actions/game'
 
 @connect(
   state => ({
     game: state.game,
+    user: state.user
   }),
-  dispatch => bindActionCreators({move}, dispatch)
+  dispatch => bindActionCreators({ 
+    move,
+    addPlayer
+  }, dispatch)
 )
 export default class Counter extends Component {
   constructor(props) {
@@ -16,10 +21,13 @@ export default class Counter extends Component {
   }
   
   render() {
-    const { game: { board }, move } = this.props;
+    const { game, user, socket, move, addPlayer } = this.props;
 
     return (
-      <Board board={board} move={move} />
+      <div>
+        <Board game={game} user={user} move={move} />
+        <Panel game={game} user={user} addPlayer={addPlayer} />
+      </div>
     );
   }
 }

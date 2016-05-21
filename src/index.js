@@ -1,14 +1,22 @@
+import io from 'socket.io-client'
 import { AppContainer } from 'react-hot-loader'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import configureStore from './utils/configureStore'
+import clientSockets from './clientSockets'
 import App from './components/App'
 
+
+const socket = io.connect('http://localhost:3000');
+
 const rootEl = document.getElementById('root');
-const store = configureStore()
+const store = configureStore(undefined, socket);
+
+clientSockets(socket, store);
+
 ReactDOM.render(
   <AppContainer>
-    <App store={store} />
+    <App store={store} socket={socket} />
   </AppContainer>,
   rootEl
 );
