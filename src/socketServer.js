@@ -6,7 +6,9 @@ let board = [];
 for (let i = 0; i < BOARD_SIZE; i++) {
   board.push([]);
   for (let j = 0; j < BOARD_SIZE; j++) {
-    board[i].push(0);
+    board[i].push({
+    	turns: 0
+    });
   }
 }
 
@@ -34,18 +36,27 @@ export default function startServer(app) {
 
 
     socket.on('game move', (data) => {
-	    
-	    const { result: { row, col, player } } = data;
 
-	    game.round += (player === game.starting) ? 0 : 1;
+	    const { result: { row, col, turns, player } } = data;
+
+	    game.round += 1;
 	    game.turn = game.turn === 1 ? 2 : 1;
 	    game.board[row][col] = {
+	    	turns,
 	    	player
 	    };
+
+	    game.board.forEach((row) => {
+	    	row.forEach((cell) => {
+	    		if(cell.turns) cell.turns -= 1;
+	    	})
+	    })
+
 	    io.sockets.emit('game change', { 
 	    	round: game.round, 
 	    	turn: game.turn,
-	    	board: game.board 
+	    	board: game.board,
+	    	movePrep: null
 	    });
 	  });
 

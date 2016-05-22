@@ -16,31 +16,41 @@ const initialState = {
 	round: 1,
 	turn: null,
 	state: 0,
-	players: []
+	players: [],
+	movePrep: null
 }
 
 const game = (state = initialState, action) => {
 
 	switch(action.type) {
 
-		// case actions.MOVE: 
-		
-		// 	let board = [...state.board];
-		// 	board[action.result.row][action.result.col] = action.result.userId;
-
-		// 	return {
-		// 		...state,
-		// 		board
-		// 	};
-		
 		case actions.PREPARE_MOVE:
+			const { row, col, turns, player, action } = action.result;
+
 			let board = [...state.board];
-			board[action.result.row][action.result.col] = {
-				lives: 0
+
+			// delete preparations of previous cell
+			if(state.movePrep && (state.movePrep.row !== row || state.movePrep.col !== col)) board[state.movePrep.row][state.movePrep.col] = {
+				prepare: false,
+				turns: 0
+			}
+
+			let newTurns = (action === 'add') ? Number(String(board[row][col].turns) + turns) : Number(String(board[row][col].turns).slice(0, -1));
+
+			board[row][col] = {
+				turns: newTurns,
+				prepare: true
 			};
+			
 			return {
 				...state,
-				board
+				board,
+				movePrep: {
+					row,
+					col,
+					player,
+					turns: newTurns
+				}
 			}
 		
 		case actions.LOAD_GAME:

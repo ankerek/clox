@@ -4,14 +4,15 @@ import Cell from './Cell'
 export default class Board extends Component {
 
   handleMove = (data) => {
-    const { game, user } = this.props;
+    const { game, user, player } = this.props;
 
-    const player = game.players.findIndex((pl) => pl.userId === user.id) + 1;
+    
     if(player !== -1 && game.turn === player)
-      this.props.move({
+      this.props.actions.prepareMove({
         ...data, 
         userId: user.id,
-        player: player
+        player,
+        turns: 0
       });
   };
 

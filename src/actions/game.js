@@ -10,7 +10,7 @@ export function loadGame(result) {
 
 export function prepareMove(result) {
 	return {
-		type: actions.MOVE,
+		type: actions.PREPARE_MOVE,
 		result
 	};	
 }

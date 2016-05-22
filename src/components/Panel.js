@@ -1,16 +1,42 @@
 import React, { Component } from 'react'
-import ChooseLives from './ChooseLives'
+import ChooseTurns from './ChooseTurns'
 
 export default class Board extends Component {
 
 
   addPlayer = () => {
-    const { game: { players }, user, addPlayer } = this.props;
+    const { game: { players }, user, actions } = this.props;
     if(players.length < 2) {
-      addPlayer({
+      actions.addPlayer({
         userId: user.id
       }, true)
     }
+  };
+
+  prepareMove = (turns, action) => {
+    const { game, user, actions } = this.props;
+
+    if(game.movePrep) 
+      if(action === 'ok') {
+        if(game.movePrep.turns === 0) {
+          console.log('cant play 0');
+          return;
+        }
+        actions.move({
+          row: game.movePrep.row,
+          col: game.movePrep.col,
+          turns: game.movePrep.turns,
+          player: game.movePrep.player
+        })
+      }
+      else 
+        actions.prepareMove({
+          row: game.movePrep.row,
+          col: game.movePrep.col,
+          turns,
+          player: game.movePrep.player,
+          action
+        })
   };
 
   render() {
@@ -24,7 +50,7 @@ export default class Board extends Component {
         <div></div>
         { game.players.length < 2 && <button type="button" onClick={this.addPlayer}>Play!</button>}
 
-        <ChooseLives />
+        <ChooseTurns prepareMove={this.prepareMove} />
       </div>
     );
   }

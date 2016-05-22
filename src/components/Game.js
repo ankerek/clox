@@ -3,17 +3,20 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import Board from './Board'
 import Panel from './Panel'
-import { move, addPlayer } from '../actions/game'
+import { prepareMove, move, addPlayer } from '../actions/game'
 
 @connect(
   state => ({
     game: state.game,
     user: state.user
   }),
-  dispatch => bindActionCreators({ 
-    move,
-    addPlayer
-  }, dispatch)
+  dispatch => ({
+    actions: bindActionCreators({ 
+      prepareMove,
+      move,
+      addPlayer
+    }, dispatch)
+  })
 )
 export default class Counter extends Component {
   constructor(props) {
@@ -21,12 +24,16 @@ export default class Counter extends Component {
   }
   
   render() {
-    const { game, user, socket, move, addPlayer } = this.props;
+    const { game, user, socket, actions } = this.props;
+
+    const player = game.players.findIndex((pl) => pl.userId === user.id) + 1;
+
+    const gameClass = `player-${player}`;
 
     return (
-      <div>
-        <Board game={game} user={user} move={move} />
-        <Panel game={game} user={user} addPlayer={addPlayer} />
+      <div className={gameClass}>
+        <Board game={game} player={player} user={user} actions={actions} />
+        <Panel game={game} user={user} actions={actions} />
       </div>
     );
   }

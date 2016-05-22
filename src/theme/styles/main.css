@@ -1,12 +1,45 @@
+$board-size: 500px;
+$cell-size: calc(($board-size - 20px - 30px) / 15);
+
+$blue: #78CDDB;
+$blue-light: #9EDBF1;
+$orange: #FAAF40;
+$orange-light: #FDC571;
 
 * {
 	box-sizing: border-box;
 }
 
+
+@font-face {
+  font-family: 'clox';
+  src:url('../fonts/clox.eot');
+  src:url('../fonts/clox.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/clox.woff') format('woff'),
+    url('../fonts/clox.ttf') format('truetype'),
+    url('../fonts/clox.svg#clox') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.clox-icon {
+	font-family: 'clox';
+	font-style: normal;
+	line-height: 1;
+}
+
+.icon-o:before {
+  content: '\6f';
+}
+.icon-x:before {
+  content: '\78';
+}
+
+
 .board {
 	padding: 10px;
-	width: 500px;
-	height: 500px;
+	width: $board-size;
+	height: $board-size;
 	float: left;
 	position: relative;
 	background-color: #d1d3d4;
@@ -23,8 +56,9 @@
 
 	.cell {
 		margin: 1px;
-		width: calc((100% - 30px) / 15);
-		height: calc((100% - 30px) / 15);
+		padding-right: 10px;
+		width: $cell-size;
+		height: $cell-size;
 		position: relative;
 		z-index: 9;
 		display: block;
@@ -33,27 +67,104 @@
 		border: 1px solid #ffffff;
 		border-radius: 5px;
 		text-align: center;
+		color: white;
+		font-family: 'clox';
+		letter-spacing: -10px;
+		font-size: 20px;
+		line-height: 1.3;
 
 
 		&.player-1 {
 			color: white;
-			background-color: #78cedc;
-			border-color: #78cedc;
+			background-color: $blue;
+			border-color: $blue-light;
 		}
 		
 		&.player-2 {
 			color: white;
-			background-color: #fbb040;
-			border-color: #fec572;
+			background-color: $orange;
+			border-color: $orange-light;
 		}
 		
-		
+		.clox-icon {
+			font-size: 25px;
+			line-height: 1.2;
+		}
 
 
 	}
 }
 
+.player-1 .board {
+	.cell:hover {
+		background-color: $blue;
+	}
+	.prepare {
+		color: $blue;
+		animation: prepare-blue 1.5s infinite;
+	}
+}
+
+.player-2 .board {
+	.cell:hover {
+		background-color: $orange;
+	}
+	.prepare {
+		color: $orange;
+		animation: prepare-orange 1.5s infinite;
+	}
+}
+
+@keyframes prepare-blue {
+  0%   { background-color: #fff;color: $blue; }
+  49% { background-color: #fff;color: $blue; }
+  50% { background-color: $blue;color: white; }
+  99% { background-color: $blue;color: white; }
+  100% { background-color: #fff;color: $blue; }
+}
+
+@keyframes prepare-orange {
+  0%   { background-color: #fff;color:$orange; }
+  49% { background-color: #fff;color:$orange; }
+  50% { background-color: $orange;color: white; }
+  99% { background-color: $orange;color: white; }
+  100% { background-color: #fff;color:$orange; }
+}
+
+
 .panel {
 	margin: 20px;
+	width: 125px;
 	float: left;
+}
+
+.choose-turns {
+
+	button {
+		margin: 1px;
+		padding: 0;
+		width: $cell-size;
+		height: $cell-size;
+		display: block;
+		float: left;
+		font-family: 'clox';
+		font-size: 23px;
+		color: white;
+		font-weight: normal;
+		cursor: pointer;
+		background-color: #808184;
+		border: 1px solid #808184;
+		border-radius: 6px;
+	}
+
+	.cancel {
+		background-color: #F37A67;
+		border-color: #F69F92;
+	}
+
+	.ok {
+		font-size: 24px;
+		background-color: #B4D349;
+		border-color: #d7df23;
+	}
 }
