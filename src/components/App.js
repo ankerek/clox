@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Provider } from 'react-redux'
-import Layout from './Layout'
 import Game from './Game'
 
 require('../theme/styles/main.css')

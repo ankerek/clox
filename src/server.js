@@ -1,6 +1,5 @@
 import express from 'express'
 import path from 'path'
-import fs from 'fs'
 import socketServer from './socketServer'
 import config from './config'
 

@@ -6,8 +6,7 @@ export default class Board extends Component {
   handleMove = (data) => {
     const { game, user, player } = this.props;
 
-    
-    if(player !== -1 && game.turn === player)
+    if (player !== -1 && game.turn === player)
       this.props.actions.prepareMove({
         ...data, 
         userId: user.id,

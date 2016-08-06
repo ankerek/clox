@@ -1,7 +1,7 @@
 $board-size: 500px;
 $cell-size: calc(($board-size - 20px - 30px) / 15);
 
-$blue: #78CDDB;
+$blue : #78CDDB;
 $blue-light: #9EDBF1;
 $orange: #FAAF40;
 $orange-light: #FDC571;
