@@ -9,7 +9,7 @@ const user = (state = initialState, action) => {
 	switch(action.type) {
 
 		case actions.GET_USER: 
-			console.log(action)
+		
 			return {
 				...state,
 				id: action.result.id

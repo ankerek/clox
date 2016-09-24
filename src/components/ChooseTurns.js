@@ -4,11 +4,11 @@ export default class ChooseTurns extends Component {
 
   handleClick = (e) => {
     const value = e.target.value;
-    let action = 'add';
-    if(value === 'del') action = 'del';
-    else if(value === 'ok') action = 'ok';
+    let gameAction = 'add';
+    if(value === 'del') gameAction = 'del';
+    else if(value === 'ok') gameAction = 'ok';
 
-    this.props.prepareMove(value, action);
+    this.props.prepareMove(value, gameAction);
   };
 
   render() {

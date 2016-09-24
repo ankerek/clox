@@ -29,7 +29,7 @@ export default class Counter extends Component {
     const player = game.players.findIndex((pl) => pl.userId === user.id) + 1;
 
     const gameClass = `player-${player}`;
-
+    
     return (
       <div className={gameClass}>
         <Board game={game} player={player} user={user} actions={actions} />

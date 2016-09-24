@@ -25,7 +25,7 @@ const game = (state = initialState, action) => {
 	switch(action.type) {
 
 		case actions.PREPARE_MOVE:
-			const { row, col, turns, player, action } = action.result;
+			const { row, col, turns, player, gameAction } = action.result;
 
 			let board = [...state.board];
 
@@ -35,7 +35,7 @@ const game = (state = initialState, action) => {
 				turns: 0
 			}
 
-			let newTurns = (action === 'add') ? Number(String(board[row][col].turns) + turns) : Number(String(board[row][col].turns).slice(0, -1));
+			let newTurns = (gameAction === 'add') ? Number(String(board[row][col].turns) + turns) : Number(String(board[row][col].turns).slice(0, -1));
 
 			board[row][col] = {
 				turns: newTurns,
