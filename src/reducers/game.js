@@ -12,68 +12,68 @@ for (let i = 0; i < BOARD_SIZE; i++) {
 }
 
 const initialState = {
-	board,
-	round: 1,
-	turn: null,
-	state: 0,
-	players: [],
-	movePrep: null
+  board,
+  round: 1,
+  turn: null,
+  state: 0,
+  players: [],
+  movePrep: null
 }
 
 const game = (state = initialState, action) => {
 
-	switch(action.type) {
+  switch(action.type) {
 
-		case actions.PREPARE_MOVE:
-			const { row, col, turns, player, gameAction } = action.result;
+    case actions.PREPARE_MOVE:
+      const { row, col, turns, player, gameAction } = action.result;
 
-			let board = [...state.board];
+      let board = [...state.board];
 
-			// delete preparations of previous cell
-			if(state.movePrep && (state.movePrep.row !== row || state.movePrep.col !== col)) board[state.movePrep.row][state.movePrep.col] = {
-				prepare: false,
-				turns: 0
-			}
+      // delete preparations of previous cell
+      if(state.movePrep && (state.movePrep.row !== row || state.movePrep.col !== col)) board[state.movePrep.row][state.movePrep.col] = {
+        prepare: false,
+        turns: 0
+      }
 
-			let newTurns = (gameAction === 'add') ? Number(String(board[row][col].turns) + turns) : Number(String(board[row][col].turns).slice(0, -1));
+      let newTurns = (gameAction === 'add') ? Number(String(board[row][col].turns) + turns) : Number(String(board[row][col].turns).slice(0, -1));
 
-			board[row][col] = {
-				turns: newTurns,
-				prepare: true
-			};
-			
-			return {
-				...state,
-				board,
-				movePrep: {
-					row,
-					col,
-					player,
-					turns: newTurns
-				}
-			}
-		
-		case actions.LOAD_GAME:
-			return {
-				...state,
-				...action.result
-			} 
+      board[row][col] = {
+        turns: newTurns,
+        prepare: true
+      };
+      
+      return {
+        ...state,
+        board,
+        movePrep: {
+          row,
+          col,
+          player,
+          turns: newTurns
+        }
+      }
+    
+    case actions.LOAD_GAME:
+      return {
+        ...state,
+        ...action.result
+      } 
 
-		case actions.GAME_CHANGE:
-			return {
-				...state,
-				...action.result
-			};
+    case actions.GAME_CHANGE:
+      return {
+        ...state,
+        ...action.result
+      };
 
-		case actions.ADD_PLAYER:
-			return {
-				...state,
-				players: [...state.players, action.result]
-			};
+    case actions.ADD_PLAYER:
+      return {
+        ...state,
+        players: [...state.players, action.result]
+      };
 
-		default:
-			return state;
-	}
+    default:
+      return state;
+  }
 }
 
 export default game

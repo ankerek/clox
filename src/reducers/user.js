@@ -1,23 +1,23 @@
 import * as actions from '../constants/actions'
 
 const initialState = {
-	id: null
+  id: null
 }
 
 const user = (state = initialState, action) => {
 
-	switch(action.type) {
+  switch(action.type) {
 
-		case actions.GET_USER: 
-		
-			return {
-				...state,
-				id: action.result.id
-			};
+    case actions.GET_USER: 
+    
+      return {
+        ...state,
+        id: action.result.id
+      };
 
-		default:
-			return state;
-	}
+    default:
+      return state;
+  }
 }
 
 export default user

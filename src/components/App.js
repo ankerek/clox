@@ -13,9 +13,9 @@ require('../theme/styles/main.css')
 
 export default class App extends Component {
   render() {
-		const { store, socket } = this.props;
+    const { store, socket } = this.props;
     return (
-    	<Provider store={store}>
+      <Provider store={store}>
         <Game socket={socket} />
       </Provider>
     );
