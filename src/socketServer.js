@@ -4,12 +4,12 @@ import { BOARD_SIZE } from './constants'
 let board = [];
 
 for (let i = 0; i < BOARD_SIZE; i++) {
-  board.push([]);
-  for (let j = 0; j < BOARD_SIZE; j++) {
-    board[i].push({
-    	turns: 0
-    });
-  }
+	board.push([]);
+	for (let j = 0; j < BOARD_SIZE; j++) {
+		board[i].push({
+			turns: 0
+		});
+	}
 }
 
 let game = {
@@ -24,50 +24,50 @@ let game = {
 let userId = 0;
 
 export default function startServer(app) {
-  const io = new SocketIo(app);
+	const io = new SocketIo(app);
 
 
 
-  io.on('connection', (socket) => {
-  	userId += 1;
+	io.on('connection', (socket) => {
+		userId += 1;
 
-  	socket.emit('get user', { id: userId });
-  	socket.emit('load game', game);
+		socket.emit('get user', { id: userId });
+		socket.emit('load game', game);
 
 
-    socket.on('game move', (data) => {
+		socket.on('game move', (data) => {
 
-	    const { result: { row, col, turns, player } } = data;
+			const { result: { row, col, turns, player } } = data;
 
-	    game.round += 1;
-	    game.turn = game.turn === 1 ? 2 : 1;
-	    game.board[row][col] = {
-	    	turns,
-	    	player
-	    };
+			game.round += 1;
+			game.turn = game.turn === 1 ? 2 : 1;
+			game.board[row][col] = {
+				turns,
+				player
+			};
 
-	    game.board.forEach((row) => {
-	    	row.forEach((cell) => {
-	    		if(cell.turns) cell.turns -= 1;
-	    	})
-	    })
+			game.board.forEach((row) => {
+				row.forEach((cell) => {
+					if(cell.turns) cell.turns -= 1;
+				})
+			})
 
-	    io.sockets.emit('game change', { 
-	    	round: game.round, 
-	    	turn: game.turn,
-	    	board: game.board,
-	    	movePrep: null
-	    });
-	  });
+			io.sockets.emit('game change', { 
+				round: game.round, 
+				turn: game.turn,
+				board: game.board,
+				movePrep: null
+			});
+		});
 
-	  socket.on('add player', (data) => {
-	    console.log(data);
+		socket.on('add player', (data) => {
+			console.log(data);
 
-	    game.players.push(data);
+			game.players.push(data);
 
-	    socket.broadcast.emit('add player', data.result);
-	  });
+			socket.broadcast.emit('add player', data.result);
+		});
 
-  });
+	});
 
 }
