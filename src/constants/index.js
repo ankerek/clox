@@ -1,1 +1,5 @@
-export const BOARD_SIZE = 15;
+import * as game from './game'
+
+export {
+  game
+}

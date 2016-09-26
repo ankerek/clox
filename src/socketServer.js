@@ -1,5 +1,5 @@
 import SocketIo from 'socket.io'
-import { BOARD_SIZE } from './constants'
+import { BOARD_SIZE } from './constants/game'
 
 let board = [];
 
@@ -34,7 +34,7 @@ export default function startServer(app) {
 
 
     socket.on('game move', (data) => {
-
+      console.log(data);
       const { result: { row, col, turns, player } } = data;
 
       game.round += 1;
@@ -44,6 +44,7 @@ export default function startServer(app) {
         player
       };
 
+      // decrease 1 turn of every cell
       game.board.forEach((row) => {
         row.forEach((cell) => {
           if(cell.turns) cell.turns -= 1;
@@ -58,6 +59,7 @@ export default function startServer(app) {
       });
     });
 
+    // add player to game
     socket.on('add player', (data) => {
       console.log(data);
 

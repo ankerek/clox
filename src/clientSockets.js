@@ -16,7 +16,6 @@ export default function(socket, store) {
   });
 
   socket.on('add player', (data) => {
-    console.log(data)
     store.dispatch(addPlayer(data));
   });
 }

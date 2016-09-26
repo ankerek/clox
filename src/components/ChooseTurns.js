@@ -1,14 +1,15 @@
 import React, { Component } from 'react'
+import { TURN_ADD, TURN_DEL, TURN_OK } from '../constants/game'
 
 export default class ChooseTurns extends Component {
 
   handleClick = (e) => {
-    const value = e.target.value;
-    let gameAction = 'add';
-    if(value === 'del') gameAction = 'del';
-    else if(value === 'ok') gameAction = 'ok';
+    let value = e.target.value;
+    let turnAction = TURN_ADD;
+    if(value === TURN_DEL) turnAction = TURN_DEL;
+    else if(value === TURN_OK) turnAction = TURN_OK;
 
-    this.props.prepareMove(value, gameAction);
+    this.props.prepareMove(Number(value), turnAction);
   };
 
   render() {

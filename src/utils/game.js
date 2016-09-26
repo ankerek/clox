@@ -1,4 +1,35 @@
-import { BOARD_SIZE } from '../constants'
+import { BOARD_SIZE, TURN_OK, MAX_TURNS } from '../constants/game'
+
+export function handleMove({ props, turnAction, newMove }) {
+  const { game, actions, player } = props;
+
+  if(game.movePrep && turnAction === TURN_OK) {
+    if(game.movePrep.turns === 0) {
+      alert('You can\'t play 0!');
+      return;
+    }
+    actions.move({
+      row: game.movePrep.row,
+      col: game.movePrep.col,
+      turns: game.movePrep.turns,
+      player: game.movePrep.player
+    })
+  } else {
+    if(game.movePrep && (game.movePrep.turns + newMove.turns) > MAX_TURNS ) {
+      alert('Too many turns!');
+      return;
+    }
+
+    actions.prepareMove({
+      row: newMove.row,
+      col: newMove.col,
+      turns: newMove.turns,
+      player,
+      turnAction
+    })
+  }
+
+}
 
 export function checkWin({ board, row, col, player }) {
   let r = row;

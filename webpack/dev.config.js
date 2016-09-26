@@ -6,7 +6,7 @@ import config from '../src/config'
 
 
 module.exports = {
-  devtool: 'eval',
+  devtool: 'source-map',
   entry: [
     'react-hot-loader/patch',
     'webpack-dev-server/client?http://localhost:3001',

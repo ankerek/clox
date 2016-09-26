@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { TURN_ADD, TURN_OK, TURN_DEL } from '../constants/game'
 import classNames from 'classnames'
 
 export default class Cell extends Component {
@@ -8,31 +9,36 @@ export default class Cell extends Component {
     return true;
   }
 
-  handleClick = () => {
+  handleClick = (e) => {
     const { cell, row, col } = this.props;
-    if(cell.turns) return;
-    this.props.move({
-      row,
-      col
-    })
+    const key = e.key;
+
+    if(cell.turns && !cell.prepare || (key !== 'Enter' && key !== 'Backspace' && isNaN(key))) return;
+
+    let turnAction = TURN_ADD;
+    if(key === 'Enter') turnAction = TURN_OK;
+    else if(key === 'Backspace') turnAction = TURN_DEL;
+    
+    this.props.move(
+      {
+        row,
+        col,
+        turns: isNaN(key) ? 0 : key
+      },
+      turnAction)
   };
 
   render() {
-    const { cell: { player, turns, prepare }, move } = this.props;
-
+    const { cell: { player, turns, prepare } } = this.props;
+    
     const cellClass = classNames({
       'cell': true,
       [`player-${player}`]: player && turns,
-      'prepare': prepare
+      prepare
     })
-    // let className = 'cell ';
-    // if(player === 1) className += 'player-1';
-   //  else if(player === 2) className += 'player-2';
-
-   //  if(prepare) className += ' prepare'
 
     return (
-      <div className={cellClass} onClick={this.handleClick}>
+      <div className={cellClass} onClick={this.handleClick} onKeyDown={this.handleClick} tabIndex="1">
         { turns !== 0 && turns }
       </div>
     );

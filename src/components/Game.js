@@ -33,7 +33,7 @@ export default class Counter extends Component {
     return (
       <div className={gameClass}>
         <Board game={game} player={player} user={user} actions={actions} />
-        <Panel game={game} user={user} actions={actions} />
+        <Panel game={game} player={player} user={user} actions={actions} />
       </div>
     );
   }
