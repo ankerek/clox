@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
+import { GAME_STATE_PLAYING } from '../constants/game'
 import { handleMove } from '../utils/game'
 import Cell from './Cell'
 
 export default class Board extends Component {
 
   handleMove = (newMove, turnAction) => {
-    const { game, user, player } = this.props;
+    const { game, player } = this.props;
 
     // if (player !== -1 && game.turn === player) {
     //   this.props.actions.prepareMove({
@@ -16,7 +17,7 @@ export default class Board extends Component {
     //   });
     // } else if(game.turn !== player) console.log('It is not your turn!')
 
-    if (player !== -1 && game.turn === player) {
+    if (game.state === GAME_STATE_PLAYING && player !== -1 && game.turn === player) {
       handleMove({
         props: this.props,
         newMove,

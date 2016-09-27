@@ -1,5 +1,5 @@
 import SocketIo from 'socket.io'
-import { BOARD_SIZE } from './constants/game'
+import { BOARD_SIZE, GAME_STATE_WAITING, GAME_STATE_PLAYING } from './constants/game'
 import { checkWin } from './utils/game'
 
 let board = [];
@@ -8,7 +8,8 @@ for (let i = 0; i < BOARD_SIZE; i++) {
   board.push([]);
   for (let j = 0; j < BOARD_SIZE; j++) {
     board[i].push({
-      turns: 0
+      turns: 0,
+      prepare: false
     });
   }
 }
@@ -17,7 +18,7 @@ let game = {
   board,
   round: 1,
   turn: 1,
-  state: 0,
+  state: GAME_STATE_WAITING,
   starting: 1,
   players: []
 }
@@ -67,7 +68,11 @@ export default function startServer(app) {
         player,
       });
 
-      if(isWin) console.log(`Player ${player} has won!`);
+      if(isWin) {
+        io.sockets.emit('game end', {
+          winner: player
+        })
+      }
 
     });
 
@@ -78,6 +83,12 @@ export default function startServer(app) {
       game.players.push(data);
 
       socket.broadcast.emit('add player', data.result);
+
+      // start game
+      if(game.players.length === 2) io.sockets.emit('game change', {
+        state: GAME_STATE_PLAYING
+      });
+
     });
 
   });

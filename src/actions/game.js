@@ -30,6 +30,16 @@ export function gameChange(result) {
   };  
 }
 
+export function gameEnd(result) {
+
+  console.log('gameEndACtion', 'end');
+
+  return {
+    type: actions.GAME_END,
+    result
+  };  
+}
+
 export function addPlayer(result, remote = false) {
   return {
     type: actions.ADD_PLAYER,

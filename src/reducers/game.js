@@ -1,4 +1,4 @@
-import { BOARD_SIZE, TURN_ADD } from '../constants/game'
+import { BOARD_SIZE, TURN_ADD, GAME_STATE_DONE } from '../constants/game'
 import * as actions from '../constants/actions'
 
 let board = [];
@@ -63,6 +63,14 @@ const game = (state = initialState, action) => {
       return {
         ...state,
         ...action.result
+      };
+
+    case actions.GAME_END:
+
+
+      return {
+        ...state,
+        state: GAME_STATE_DONE
       };
 
     case actions.ADD_PLAYER:

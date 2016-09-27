@@ -1,5 +1,5 @@
 import { getUser } from './actions/user'
-import { loadGame, gameChange, addPlayer } from './actions/game'
+import { loadGame, gameChange, gameEnd, addPlayer } from './actions/game'
 
 export default function(socket, store) {
 
@@ -13,6 +13,10 @@ export default function(socket, store) {
 
   socket.on('game change', (data) => {
     store.dispatch(gameChange(data));
+  });
+
+  socket.on('game end', (data) => {
+    store.dispatch(gameEnd(data));
   });
 
   socket.on('add player', (data) => {
