@@ -37,13 +37,13 @@ export function checkWin({ board, row, col, player }) {
   let sum = 0;
 
   // check rows *****
-  while(c >= 0 && board[r][c] === player) {
+  while(c >= 0 && board[r][c].player === player) {
     sum++;
     c--;
   }
 
   c = col;
-  while(c < BOARD_SIZE && board[r][c] === player) {
+  while(c < BOARD_SIZE && board[r][c].player  === player) {
     sum++;
     c++;
   }
@@ -59,13 +59,13 @@ export function checkWin({ board, row, col, player }) {
   c = col;
   sum = 0;
 
-  while(r >= 0 && board[r][c] === player) {
+  while(r >= 0 && board[r][c].player  === player) {
     sum++;
     r--;
   }
 
   r = row;
-  while(r < BOARD_SIZE && board[r][c] === player) {
+  while(r < BOARD_SIZE && board[r][c].player  === player) {
     sum++;
     r++;
   }
@@ -77,14 +77,14 @@ export function checkWin({ board, row, col, player }) {
   r = row ? row - 1 : 0;
   c = col ? col - 1 : 0;
   sum = 0;
-  while(r >= 0 && c >= 0 && board[r][c] === player) {
+  while(r >= 0 && c >= 0 && board[r][c].player  === player) {
     sum++;
     r--;
     c--;
   }
   r = row;
   c = col;
-  while(r < BOARD_SIZE && c < BOARD_SIZE && board[r][c] === player) {
+  while(r < BOARD_SIZE && c < BOARD_SIZE && board[r][c].player  === player) {
     sum++;
     r++;
     c++;
@@ -95,14 +95,14 @@ export function checkWin({ board, row, col, player }) {
   r = row ? row + 1 : 0;
   c = col ? col - 1 : 0;
   sum = 0;
-  while(r < BOARD_SIZE && c >= 0 && board[r][c] === player) {
+  while(r < BOARD_SIZE && c >= 0 && board[r][c].player  === player) {
     sum++;
     r++;
     c--;
   }
   r = row;
   c = col;
-  while(r >= 0 && c < BOARD_SIZE && board[r][c] === player) {
+  while(r >= 0 && c < BOARD_SIZE && board[r][c].player  === player) {
     sum++;
     r--;
     c++;

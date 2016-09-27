@@ -1,5 +1,6 @@
 import SocketIo from 'socket.io'
 import { BOARD_SIZE } from './constants/game'
+import { checkWin } from './utils/game'
 
 let board = [];
 
@@ -57,6 +58,17 @@ export default function startServer(app) {
         board: game.board,
         movePrep: null
       });
+
+      // check for win in this move
+      const isWin = checkWin({
+        board: game.board,
+        row,
+        col,
+        player,
+      });
+
+      if(isWin) console.log(`Player ${player} has won!`);
+
     });
 
     // add player to game
