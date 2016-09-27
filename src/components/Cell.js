@@ -13,8 +13,8 @@ export default class Cell extends Component {
     const { cell, row, col } = this.props;
     const key = e.key;
 
-    if(cell.turns && !cell.prepare || (key !== 'Enter' && key !== 'Backspace' && isNaN(key))) return;
-
+    if(cell.turns && !cell.prepare || (e.type === 'keydown' && key !== 'Enter' && key !== 'Backspace' && isNaN(key))) return;
+    
     let turnAction = TURN_ADD;
     if(key === 'Enter') turnAction = TURN_OK;
     else if(key === 'Backspace') turnAction = TURN_DEL;
