@@ -4,24 +4,31 @@ var precss = require('precss');
 var autoprefixer = require('autoprefixer'); 
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
-import config from '../src/config'
-
-
 module.exports = {
   devtool: 'cheap-module-eval-source-map',
   entry: [
-    'react-hot-loader/patch',
-    'webpack-dev-server/client?http://localhost:3001',
-    'webpack/hot/only-dev-server',
     './src/index'
   ],
   output: {
-    path: path.join(__dirname, '..', 'dist'),
+    path: path.join(process.cwd(), 'static'),
     filename: 'bundle.js',
-    publicPath: /*'http://' + config.host + ':' + 3001 + '/dist/'*/ '/',
+    publicPath: '/'
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': JSON.stringify('production'),
+        'BROWSER': JSON.stringify(true)
+      }
+    }),
+    // optimizations
+    new webpack.optimize.DedupePlugin(),
+    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: false
+      }
+    }),
     new HtmlWebpackPlugin({
       template: 'src/index.pug',
       inject: true,
