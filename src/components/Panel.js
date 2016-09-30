@@ -15,29 +15,6 @@ export default class Board extends Component {
   };
 
   prepareMove = (turns, turnAction) => {
-    // const { game, actions } = this.props;
-
-    // if(game.movePrep) 
-    //   if(gameAction === 'ok') {
-    //     if(game.movePrep.turns === 0) {
-    //       alert('You can\'t play 0!');
-    //       return;
-    //     }
-    //     actions.move({
-    //       row: game.movePrep.row,
-    //       col: game.movePrep.col,
-    //       turns: game.movePrep.turns,
-    //       player: game.movePrep.player
-    //     })
-    //   } else {
-    //     actions.prepareMove({
-    //       row: game.movePrep.row,
-    //       col: game.movePrep.col,
-    //       turns,
-    //       player: game.movePrep.player,
-    //       gameAction
-    //     })
-    //   }
 
     const { game: { movePrep } } = this.props;
 
@@ -55,7 +32,7 @@ export default class Board extends Component {
 
   render() {
     const { game, user } = this.props;
-    //console.log(players)
+    
     return (
       <div className="panel">
         <div>Round: {game.round}</div>

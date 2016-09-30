@@ -13,7 +13,7 @@ export default class ChooseTurns extends Component {
   };
 
   render() {
-    const { game, user } = this.props;
+    
     return (
       <div className="choose-turns">
         <button type="button" value={1} onClick={this.handleClick}>1</button>
@@ -26,8 +26,8 @@ export default class ChooseTurns extends Component {
         <button type="button" value={8} onClick={this.handleClick}>8</button>
         <button type="button" value={9} onClick={this.handleClick}>9</button>
         <button type="button" value={0} onClick={this.handleClick}>0</button>
-        <button type="button" className="cancel" value="del" onClick={this.handleClick}>a</button>
-        <button type="button" className="ok" value="ok" onClick={this.handleClick}>n</button>
+        <button type="button" className="cancel" value={TURN_DEL} onClick={this.handleClick}>a</button>
+        <button type="button" className="ok" value={TURN_OK} onClick={this.handleClick}>n</button>
 
       </div>
     );

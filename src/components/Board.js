@@ -8,15 +8,6 @@ export default class Board extends Component {
   handleMove = (newMove, turnAction) => {
     const { game, player } = this.props;
 
-    // if (player !== -1 && game.turn === player) {
-    //   this.props.actions.prepareMove({
-    //     ...data, 
-    //     userId: user.id,
-    //     player,
-    //     //turns: 0
-    //   });
-    // } else if(game.turn !== player) console.log('It is not your turn!')
-
     if (game.state === GAME_STATE_PLAYING && player !== -1 && game.turn === player) {
       handleMove({
         props: this.props,

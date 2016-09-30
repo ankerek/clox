@@ -35,7 +35,7 @@ const game = (state = initialState, action) => {
         turns: 0
       }
 
-      let newTurns = (turnAction === TURN_ADD) ? Number(String(board[row][col].turns) + turns) : Number(String(board[row][col].turns).slice(0, -1));
+      const newTurns = (turnAction === TURN_ADD) ? Number(String(board[row][col].turns) + turns) : Number(String(board[row][col].turns).slice(0, -1));
 
       board[row][col] = {
         turns: newTurns,
