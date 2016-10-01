@@ -17,7 +17,7 @@ for (let i = 0; i < BOARD_SIZE; i++) {
 let game = {
   board,
   round: 1,
-  turn: 1,
+  turn: 'o',
   state: GAME_STATE_WAITING,
   starting: 1,
   players: []
@@ -37,13 +37,13 @@ export default function startServer(app) {
 
     socket.on('game move', (data) => {
       console.log(data);
-      const { payload: { row, col, turns, player } } = data;
+      const { payload: { row, col, turns, symbol } } = data;
 
       game.round += 1;
-      game.turn = game.turn === 1 ? 2 : 1;
+      game.turn = game.turn === 'o' ? 'x' : 'o';
       game.board[row][col] = {
         turns,
-        player
+        symbol
       };
 
       // decrease 1 turn of every cell
@@ -65,12 +65,12 @@ export default function startServer(app) {
         board: game.board,
         row,
         col,
-        player,
+        symbol,
       });
 
       if(isWin) {
         io.sockets.emit('game end', {
-          winner: player
+          winner: symbol
         })
       }
 

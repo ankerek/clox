@@ -1,7 +1,7 @@
 import { BOARD_SIZE, TURN_OK, MAX_TURNS } from '../constants/game'
 
 export function handleMove({ props, turnAction, newMove }) {
-  const { game, actions, player } = props;
+  const { game, actions, symbol } = props;
 
   if(game.movePrep && turnAction === TURN_OK) {
     if(game.movePrep.turns === 0) {
@@ -12,7 +12,7 @@ export function handleMove({ props, turnAction, newMove }) {
       row: game.movePrep.row,
       col: game.movePrep.col,
       turns: game.movePrep.turns,
-      player: game.movePrep.player
+      symbol: game.movePrep.symbol
     })
   } else {
     if(game.movePrep && (game.movePrep.turns + newMove.turns) > MAX_TURNS ) {
@@ -24,26 +24,26 @@ export function handleMove({ props, turnAction, newMove }) {
       row: newMove.row,
       col: newMove.col,
       turns: newMove.turns,
-      player,
+      symbol,
       turnAction
     })
   }
 
 }
 
-export function checkWin({ board, row, col, player }) {
+export function checkWin({ board, row, col, symbol }) {
   let r = row;
   let c = col ? col - 1 : 0;
   let sum = 0;
 
   // check rows *****
-  while(c >= 0 && board[r][c].player === player) {
+  while(c >= 0 && board[r][c].symbol === symbol) {
     sum++;
     c--;
   }
 
   c = col;
-  while(c < BOARD_SIZE && board[r][c].player  === player) {
+  while(c < BOARD_SIZE && board[r][c].symbol  === symbol) {
     sum++;
     c++;
   }
@@ -59,13 +59,13 @@ export function checkWin({ board, row, col, player }) {
   c = col;
   sum = 0;
 
-  while(r >= 0 && board[r][c].player  === player) {
+  while(r >= 0 && board[r][c].symbol  === symbol) {
     sum++;
     r--;
   }
 
   r = row;
-  while(r < BOARD_SIZE && board[r][c].player  === player) {
+  while(r < BOARD_SIZE && board[r][c].symbol  === symbol) {
     sum++;
     r++;
   }
@@ -77,14 +77,14 @@ export function checkWin({ board, row, col, player }) {
   r = row ? row - 1 : 0;
   c = col ? col - 1 : 0;
   sum = 0;
-  while(r >= 0 && c >= 0 && board[r][c].player  === player) {
+  while(r >= 0 && c >= 0 && board[r][c].symbol  === symbol) {
     sum++;
     r--;
     c--;
   }
   r = row;
   c = col;
-  while(r < BOARD_SIZE && c < BOARD_SIZE && board[r][c].player  === player) {
+  while(r < BOARD_SIZE && c < BOARD_SIZE && board[r][c].symbol  === symbol) {
     sum++;
     r++;
     c++;
@@ -95,14 +95,14 @@ export function checkWin({ board, row, col, player }) {
   r = row ? row + 1 : 0;
   c = col ? col - 1 : 0;
   sum = 0;
-  while(r < BOARD_SIZE && c >= 0 && board[r][c].player  === player) {
+  while(r < BOARD_SIZE && c >= 0 && board[r][c].symbol  === symbol) {
     sum++;
     r++;
     c--;
   }
   r = row;
   c = col;
-  while(r >= 0 && c < BOARD_SIZE && board[r][c].player  === player) {
+  while(r >= 0 && c < BOARD_SIZE && board[r][c].symbol  === symbol) {
     sum++;
     r--;
     c++;

@@ -74,13 +74,13 @@ $orange-light: #FDC571;
 		line-height: 1.4;
 
 
-		&.player-1 {
+		&.symbol-o {
 			color: white;
 			background-color: $blue;
 			border-color: $blue-light;
 		}
 		
-		&.player-2 {
+		&.symbol-x {
 			color: white;
 			background-color: $orange;
 			border-color: $orange-light;
@@ -95,7 +95,7 @@ $orange-light: #FDC571;
 	}
 }
 
-.player-1 .board {
+.symbol-o .board {
 	.cell:hover {
 		background-color: $blue;
 	}
@@ -105,7 +105,7 @@ $orange-light: #FDC571;
 	}
 }
 
-.player-2 .board {
+.symbol-x .board {
 	.cell:hover {
 		background-color: $orange;
 	}

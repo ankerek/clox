@@ -6,9 +6,9 @@ import Cell from './Cell'
 export default class Board extends Component {
 
   handleMove = (newMove, turnAction) => {
-    const { game, player } = this.props;
-
-    if (game.state === GAME_STATE_PLAYING && player !== -1 && game.turn === player) {
+    const { game, symbol } = this.props;
+    
+    if (game.state === GAME_STATE_PLAYING && symbol && game.turn === symbol) {
       handleMove({
         props: this.props,
         newMove,
@@ -19,7 +19,7 @@ export default class Board extends Component {
   };
 
   render() {
-    const { game: { board } } = this.props;
+    const { game: { board }, symbol } = this.props;
 
     return (
       <div className="board">

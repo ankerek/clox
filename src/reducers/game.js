@@ -25,7 +25,7 @@ const game = (state = initialState, action) => {
   switch(action.type) {
 
     case actions.PREPARE_MOVE:
-      const { row, col, turns, player, turnAction } = action.payload;
+      const { row, col, turns, symbol, turnAction } = action.payload;
 
       let board = [...state.board];
 
@@ -48,7 +48,7 @@ const game = (state = initialState, action) => {
         movePrep: {
           row,
           col,
-          player,
+          symbol,
           turns: newTurns
         }
       }

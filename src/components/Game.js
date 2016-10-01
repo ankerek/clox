@@ -24,16 +24,17 @@ export default class Counter extends Component {
   }
   
   render() {
-    const { game, user, socket, actions } = this.props;
-
-    const player = game.players.findIndex((pl) => pl.userId === user.id) + 1;
-
-    const gameClass = `player-${player}`;
+    const { game, user, actions } = this.props;
+    //const player = game.players.findIndex((pl) => pl.userId === user.id) + 1;
+    
+    const player = game.players.find((pl) => pl.userId === user.id);
+    const symbol = player ? player.symbol : undefined;
+    const gameClass = `symbol-${symbol}`;
     
     return (
       <div className={gameClass}>
-        <Board game={game} player={player} user={user} actions={actions} />
-        <Panel game={game} player={player} user={user} actions={actions} />
+        <Board game={game} symbol={symbol} user={user} actions={actions} />
+        <Panel game={game} user={user} actions={actions} />
       </div>
     );
   }

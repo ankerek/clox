@@ -29,11 +29,11 @@ export default class Cell extends Component {
   };
 
   render() {
-    const { cell: { player, turns, prepare } } = this.props;
+    const { cell: { symbol, turns, prepare } } = this.props;
     
     const cellClass = classNames({
       'cell': true,
-      [`player-${player}`]: player && turns,
+      [`symbol-${symbol}`]: symbol && turns,
       prepare
     })
 

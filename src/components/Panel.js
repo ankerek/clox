@@ -1,15 +1,17 @@
 import React, { Component } from 'react'
 import { handleMove } from '../utils/game'
+import ChoosePlayer from './ChoosePlayer'
 import ChooseTurns from './ChooseTurns'
 
 export default class Board extends Component {
 
 
-  addPlayer = () => {
+  addPlayer = ({ target: { value }}) => {
     const { game: { players }, user, actions } = this.props;
     if(players.length < 2) {
       actions.addPlayer({
-        userId: user.id
+        userId: user.id,
+        symbol: value
       }, true)
     }
   };
@@ -35,11 +37,13 @@ export default class Board extends Component {
     
     return (
       <div className="panel">
+        <div>State: {game.state}</div>
         <div>Round: {game.round}</div>
         <div>Turn: {game.turn}</div>
         <div>UserId: {user.id}</div>
         <div></div>
-        { game.players.length < 2 && <button type="button" onClick={this.addPlayer}>Play!</button>}
+        <ChoosePlayer game={game} addPlayer={this.addPlayer} />
+        { /*game.players.length < 2 && <button type="button" onClick={this.addPlayer}>Play!</button> */}
 
         <ChooseTurns prepareMove={this.prepareMove} />
       </div>
