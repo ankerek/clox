@@ -1,49 +1,49 @@
 import * as actions from '../constants/actions'
 import { checkWin } from '../utils/game'
 
-export function loadGame(result) {
+export function loadGame(payload) {
   return {
     type: actions.LOAD_GAME,
-    result
+    payload
   };  
 }
 
-export function prepareMove(result) {
+export function prepareMove(payload) {
   return {
     type: actions.PREPARE_MOVE,
-    result
+    payload
   };  
 }
 
-export function move(result) {
+export function move(payload) {
   return {
     type: actions.MOVE,
-    result,
+    payload,
     remote: 'game move'
   };  
 }
 
-export function gameChange(result) {
+export function gameChange(payload) {
   return {
     type: actions.GAME_CHANGE,
-    result
+    payload
   };  
 }
 
-export function gameEnd(result) {
+export function gameEnd(payload) {
 
   console.log('gameEndACtion', 'end');
 
   return {
     type: actions.GAME_END,
-    result
+    payload
   };  
 }
 
-export function addPlayer(result, remote = false) {
+export function addPlayer(payload, remote = false) {
   return {
     type: actions.ADD_PLAYER,
-    result,
+    payload,
     remote: remote ? 'add player' : null
   }
 }

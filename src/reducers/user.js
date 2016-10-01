@@ -12,7 +12,7 @@ const user = (state = initialState, action) => {
     
       return {
         ...state,
-        id: action.result.id
+        id: action.payload.id
       };
 
     default:

@@ -25,7 +25,7 @@ const game = (state = initialState, action) => {
   switch(action.type) {
 
     case actions.PREPARE_MOVE:
-      const { row, col, turns, player, turnAction } = action.result;
+      const { row, col, turns, player, turnAction } = action.payload;
 
       let board = [...state.board];
 
@@ -56,13 +56,13 @@ const game = (state = initialState, action) => {
     case actions.LOAD_GAME:
       return {
         ...state,
-        ...action.result
+        ...action.payload
       } 
 
     case actions.GAME_CHANGE:
       return {
         ...state,
-        ...action.result
+        ...action.payload
       };
 
     case actions.GAME_END:
@@ -76,7 +76,7 @@ const game = (state = initialState, action) => {
     case actions.ADD_PLAYER:
       return {
         ...state,
-        players: [...state.players, action.result]
+        players: [...state.players, action.payload]
       };
 
     default:

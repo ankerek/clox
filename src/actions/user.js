@@ -1,9 +1,9 @@
 import * as actions from '../constants/actions'
 
-export function getUser(result) {
+export function getUser(payload) {
 
   return {
     type: actions.GET_USER,
-    result
+    payload
   };
 }

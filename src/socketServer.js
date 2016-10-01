@@ -37,7 +37,7 @@ export default function startServer(app) {
 
     socket.on('game move', (data) => {
       console.log(data);
-      const { result: { row, col, turns, player } } = data;
+      const { payload: { row, col, turns, player } } = data;
 
       game.round += 1;
       game.turn = game.turn === 1 ? 2 : 1;
@@ -82,7 +82,7 @@ export default function startServer(app) {
 
       game.players.push(data);
 
-      socket.broadcast.emit('add player', data.result);
+      socket.broadcast.emit('add player', data.payload);
 
       // start game
       if(game.players.length === 2) io.sockets.emit('game change', {
