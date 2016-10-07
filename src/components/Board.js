@@ -5,15 +5,21 @@ import Cell from './Cell'
 
 export default class Board extends Component {
 
-  handleMove = (newMove, turnAction) => {
-    const { game, symbol } = this.props;
-    
+  handleMove = (row, col) => {
+    const { game, symbol, actions } = this.props;
+
     if (game.state === GAME_STATE_PLAYING && symbol && game.turn === symbol) {
-      handleMove({
-        props: this.props,
-        newMove,
-        turnAction
-      })
+      actions.prepareMove({
+        row,
+        col,
+        symbol
+      });
+
+      // handleMove({
+      //   props: this.props,
+      //   newMove,
+      //   turnAction
+      // })
     }
 
   };

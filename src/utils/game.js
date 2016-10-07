@@ -31,6 +31,26 @@ export function handleMove({ props, turnAction, newMove }) {
 
 }
 
+export function getEmptyMidCell(board) {
+  const base = Math.floor(BOARD_SIZE/2);
+
+  if(board[base][base].turns === 0) return {row: base, col: base}
+
+  for(let k = 1; k <= base; k++) {
+    const min = base - k;
+    const max = base + k;
+
+    for(let i = min; i <= max; i++) {
+      if(i === min || i === max) {
+        for(let j = min; j <= max; j++) if(board[i][j].turns === 0) return {row: i, col: j}
+      } 
+      else if(board[i][min].turns === 0) return {row: i, col: min}
+      else if(board[i][max].turns === 0) return {row: i, col: max}
+    }
+  }
+
+}
+
 export function checkWin({ board, row, col, symbol }) {
   let r = row;
   let c = col ? col - 1 : 0;

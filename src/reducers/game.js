@@ -1,4 +1,5 @@
 import { BOARD_SIZE, TURN_ADD, GAME_STATE_DONE } from '../constants/game'
+import { getEmptyMidCell } from '../utils/game'
 import * as actions from '../constants/actions'
 
 let board = [];
@@ -25,32 +26,39 @@ const game = (state = initialState, action) => {
   switch(action.type) {
 
     case actions.PREPARE_MOVE:
-      const { row, col, turns, symbol, turnAction } = action.payload;
+      const { row, col, symbol } = action.payload;
 
       let board = [...state.board];
-
-      // delete preparations of previous cell
-      if(state.movePrep && (state.movePrep.row !== row || state.movePrep.col !== col)) board[state.movePrep.row][state.movePrep.col] = {
-        prepare: false,
+      let movePrep = {
+        row,
+        col,
+        symbol,
         turns: 0
       }
 
-      const newTurns = (turnAction === TURN_ADD) ? Number(String(board[row][col].turns) + turns) : Number(String(board[row][col].turns).slice(0, -1));
+      // delete preparations of previous cell
+      if(state.movePrep) {
+        if(state.movePrep.row !== row || state.movePrep.col !== col) board[state.movePrep.row][state.movePrep.col] = {
+          turns: 0,
+          prepare: false
+        }
+      } else {
+        const emptyMidCell = getEmptyMidCell(board);
+        movePrep.row = emptyMidCell.row;
+        movePrep.col = emptyMidCell.col;
+      }
 
-      board[row][col] = {
-        turns: newTurns,
+      //const newTurns = (turnAction === TURN_ADD) ? Number(String(board[row][col].turns) + turns) : Number(String(board[row][col].turns).slice(0, -1));
+
+      board[movePrep.row][movePrep.col] = {
+        turns: 0,
         prepare: true
       };
       
       return {
         ...state,
         board,
-        movePrep: {
-          row,
-          col,
-          symbol,
-          turns: newTurns
-        }
+        movePrep
       }
     
     case actions.LOAD_GAME:

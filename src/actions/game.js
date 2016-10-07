@@ -2,10 +2,39 @@ import * as actions from '../constants/actions'
 import { checkWin } from '../utils/game'
 
 export function loadGame(payload) {
-  return {
-    type: actions.LOAD_GAME,
-    payload
-  };  
+  return (dispatch, getState) => {
+
+    const handleMoving = ({ keyCode }) => {
+      switch(keyCode) {
+        //left
+        case 37:
+          dispatch(prepareMove({direction: 'left'}))          
+          break;
+        //right
+        case 39:
+
+          break;
+        //top
+        case 38:
+
+          break;
+        //bot
+        case 40:
+
+          break;
+
+        default:
+          break;
+      }
+    } 
+
+    window.addEventListener('keydown', handleMoving);
+
+    return dispatch({
+      type: actions.LOAD_GAME,
+      payload
+    })
+  }
 }
 
 export function prepareMove(payload) {

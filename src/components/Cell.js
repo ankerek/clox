@@ -13,19 +13,13 @@ export default class Cell extends Component {
     const { cell, row, col } = this.props;
     const key = e.key;
 
-    if(cell.turns && !cell.prepare || (e.type === 'keydown' && key !== 'Enter' && key !== 'Backspace' && isNaN(key))) return;
+    //if(cell.turns && !cell.prepare || (e.type === 'keydown' && key !== 'Enter' && key !== 'Backspace' && isNaN(key))) return;
+
+    // let turnAction = TURN_ADD;
+    // if(key === 'Enter') turnAction = TURN_OK;
+    // else if(key === 'Backspace') turnAction = TURN_DEL;
     
-    let turnAction = TURN_ADD;
-    if(key === 'Enter') turnAction = TURN_OK;
-    else if(key === 'Backspace') turnAction = TURN_DEL;
-    
-    this.props.move(
-      {
-        row,
-        col,
-        turns: isNaN(key) ? 0 : key
-      },
-      turnAction)
+    this.props.move(row, col);
   };
 
   render() {
@@ -38,7 +32,7 @@ export default class Cell extends Component {
     })
 
     return (
-      <div className={cellClass} onClick={this.handleClick} onKeyDown={this.handleClick} tabIndex="1">
+      <div className={cellClass} onClick={this.handleClick} tabIndex="1">
         { turns !== 0 && turns }
       </div>
     );
