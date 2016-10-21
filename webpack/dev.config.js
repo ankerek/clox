@@ -23,7 +23,7 @@ module.exports = {
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
-      template: 'src/index.pug',
+      template: 'src/index.html',
       inject: true,
     })
   ],
